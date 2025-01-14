@@ -32,6 +32,7 @@ function TokenizerBuilder(option) {
     } else {
         this.dic_path = option.dicPath;
     }
+    this.fileNames = option.fileNameOptions
 }
 
 /**
@@ -39,7 +40,7 @@ function TokenizerBuilder(option) {
  * @param {TokenizerBuilder~onLoad} callback Callback function
  */
 TokenizerBuilder.prototype.build = function (callback) {
-    var loader = new DictionaryLoader(this.dic_path);
+    var loader = new DictionaryLoader(this.dic_path, this.fileNames);
     loader.load(function (err, dic) {
         callback(err, new Tokenizer(dic));
     });

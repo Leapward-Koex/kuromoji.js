@@ -20,12 +20,13 @@ Directory
 Directory tree is as follows:
 
     build/
-      kuromoji.js -- JavaScript file for browser (Browserified)
-    demo/         -- Demo
-    dict/         -- Dictionaries for tokenizer (gzipped)
-    example/      -- Examples to use in Node.js
-    src/          -- JavaScript source
-    test/         -- Unit test
+      kuromoji.js           -- JavaScript file for browser (Browserified)
+    demo/                   -- Demo
+    dict/                   -- Dictionaries for tokenizer (gzipped)
+    dict_extension_spoofed/ -- Dictionaries for tokenizer with a spoofed extension for extension on Edge (gzipped) See: https://github.com/microsoft/MicrosoftEdge-Extensions/discussions/135 for more info
+    example/                -- Examples to use in Node.js
+    src/                    -- JavaScript source
+    test/                   -- Unit test
 
 
 Usage
@@ -77,6 +78,33 @@ In your JavaScript:
         console.log(path);
     });
 
+### Edge extension support
+
+Edge extensions do not support shipping zip files (.gz), to get around this you can specify the names of the dictionary files to use. The library includes a copy of the dictionary with spoofed extension names under dict_extension_spoofed for convenience.
+
+```
+    kuromoji.builder({
+        dicPath: "/url/to/dictionary/dir/",
+        fileNameOptions: {
+                            base: "base.dat.zg",
+                            check: "check.dat.zg",
+                            tid: "tid.dat.zg",
+                            tidPos: "tid_pos.dat.zg",
+                            tidMap: "tid_map.dat.zg",
+                            cc: "cc.dat.zg",
+                            unk: "unk.dat.zg",
+                            unkPos: "unk_pos.dat.zg",
+                            unkMap: "unk_map.dat.zg",
+                            unkChar: "unk_char.dat.zg",
+                            unkCompat: "unk_compat.dat.zg",
+                            unkInvoke: "unk_invoke.dat.zg"
+                        }
+    }).build(function (err, tokenizer) {
+        // tokenizer is ready
+        var path = tokenizer.tokenize("すもももももももものうち");
+        console.log(path);
+    });
+```
 
 API
 ---

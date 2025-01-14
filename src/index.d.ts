@@ -7,7 +7,7 @@
 
 // dict/ConnectionCosts.js
 
-declare module "@sglkc/kuromoji" {
+declare module "@leapward-koex/kuromoji" {
   export interface ConnectionCosts {
     buffer: Int16Array;
     put(forward_id: number, backward_id: number, cost: number): void;
@@ -173,6 +173,20 @@ declare module "@sglkc/kuromoji" {
   }
   export interface TokenizerBuilderOption {
     dicPath?: string | undefined;
+    fileNameOptions?: {
+      base: string,
+      check: string,
+      tid: string,
+      tidPos: string,
+      tidMap: string,
+      cc: string,
+      unk: string,
+      unkPos: string,
+      unkMap: string,
+      unkChar: string,
+      unkCompat: string,
+      unkInvoke: string
+    }
   }
 
   // kuromoji.js

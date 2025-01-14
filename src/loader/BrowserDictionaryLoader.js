@@ -21,12 +21,13 @@ var fflate = require("fflate");
 var DictionaryLoader = require("./DictionaryLoader");
 
 /**
- * BrowserDictionaryLoader inherits DictionaryLoader, using jQuery XHR for download
+ * BrowserDictionaryLoader inherits DictionaryLoader, using fetch for download
  * @param {string} dic_path Dictionary path
+ * @param {Object} [fileOptions] Optional overriding file names
  * @constructor
  */
-function BrowserDictionaryLoader(dic_path) {
-    DictionaryLoader.apply(this, [dic_path]);
+function BrowserDictionaryLoader(dic_path, fileOptions) {
+    DictionaryLoader.call(this, dic_path, fileOptions);
 }
 
 BrowserDictionaryLoader.prototype = Object.create(DictionaryLoader.prototype);
@@ -38,7 +39,7 @@ BrowserDictionaryLoader.prototype = Object.create(DictionaryLoader.prototype);
  */
 BrowserDictionaryLoader.prototype.loadArrayBuffer = function (url, callback) {
     fetch(url).then(function (response) {
-        if (!response.ok){
+        if (!response.ok) {
             callback(response.statusText, null);
         }
 

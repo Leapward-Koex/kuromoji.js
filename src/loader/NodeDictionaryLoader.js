@@ -22,12 +22,13 @@ var node_zlib = require("zlib");
 var DictionaryLoader = require("./DictionaryLoader");
 
 /**
- * NodeDictionaryLoader inherits DictionaryLoader
+ * BrowserDictionaryLoader inherits DictionaryLoader, using fetch for download
  * @param {string} dic_path Dictionary path
+ * @param {Object} [fileOptions] Optional overriding file names
  * @constructor
  */
-function NodeDictionaryLoader(dic_path) {
-    DictionaryLoader.apply(this, [ dic_path ]);
+function NodeDictionaryLoader(dic_path, fileOptions) {
+    DictionaryLoader.call(this, dic_path, fileOptions);
 }
 
 NodeDictionaryLoader.prototype = Object.create(DictionaryLoader.prototype);
@@ -39,11 +40,11 @@ NodeDictionaryLoader.prototype = Object.create(DictionaryLoader.prototype);
  */
 NodeDictionaryLoader.prototype.loadArrayBuffer = function (file, callback) {
     fs.readFile(file, function (err, buffer) {
-        if(err) {
+        if (err) {
             return callback(err);
         }
         node_zlib.gunzip(buffer, function (err2, decompressed) {
-            if(err2) {
+            if (err2) {
                 return callback(err2);
             }
             var typed_array = new Uint8Array(decompressed);
