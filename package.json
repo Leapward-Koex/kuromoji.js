@@ -23,7 +23,7 @@
   "types": "./src/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Leapward-Koex/kuromoji.js.git"
+    "url": "git+https://github.com/Leapward-Koex/kuromoji.js.git"
   },
   "scripts": {
     "build": "gulp build",
